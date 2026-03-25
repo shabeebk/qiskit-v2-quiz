@@ -263,7 +263,7 @@ async function loadProgress(){
   catch{ return {correct:0,total:0,bySection:{}}; }
 }
 async function saveProgress(p){
-  try{ await window.storage.set("qiskit_progress",JSON.stringify(p)); }catch{}
+  try{ await window.storage.set("qiskit_progress",JSON.stringify(p)); }catch{ /* storage unavailable */ }
 }
 
 function HomeScreen({onStart,progress}){
@@ -461,7 +461,7 @@ export default function App(){
   useEffect(()=>{loadProgress().then(setProgress);},[]);
 
   const startQuiz=(secs,diffs,count)=>{
-    let pool=[];
+    const pool=[];
     secs.forEach(sid=>(QUESTION_BANK[sid]||[]).filter(q=>diffs.includes(q.difficulty)).forEach(q=>pool.push({...q,section:sid})));
     setQuestions(shuffle(pool).slice(0,count));
     setScreen("quiz");

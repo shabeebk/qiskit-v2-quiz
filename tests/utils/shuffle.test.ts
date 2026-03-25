@@ -34,7 +34,6 @@ describe('shuffle', () => {
 
   it('produces different orderings across runs (probabilistic)', () => {
     const arr = Array.from({ length: 20 }, (_, i) => i);
-    const results = new Set(shuffle(arr).join(','));
     // Run several shuffles; it is astronomically unlikely all are identical
     const shuffles = Array.from({ length: 10 }, () => shuffle(arr).join(','));
     const unique = new Set(shuffles);
